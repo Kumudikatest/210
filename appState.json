@@ -23,7 +23,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "210/lambda.js",
-        "code": "let AWS = require('aws-sdk');\nconst sqs = new SL_AWS.SQS(AWS);\nlet SL_AWS = require('slappforge-sdk-aws');\nlet connectionManager = require('./ConnectionManager');\nconst rds = new SL_AWS.RDS(connectionManager);\n\nexports.handler = function (event, context, callback) {\n\n    // You must always end/destroy the DB connection after it's used\n    rds.beginTransaction({\n        instanceIdentifier: 'Test'\n    }, function (error, connection) {\n        if (error) {\n            throw error;\n        }\n        connection.end();\n    });\n    sqs.sendMessage({\n        MessageBody: 'Test',\n        QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/test-queue.fifo',\n        DelaySeconds: '0',\n        MessageDeduplicationId: 'Test ID',\n        MessageAttributes: {}\n    }, function (data) {\n        // your logic (logging etc) to handle successful message delivery, should be here\n    }, function (error) {\n        // your logic (logging etc) to handle failures, should be here\n        console.log(error);\n    });\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}",
+        "code": "let AWS = require('aws-sdk');\nconst sqs = new SL_AWS.SQS(AWS);\nlet SL_AWS = require('slappforge-sdk-aws');\nlet connectionManager = require('./ConnectionManager');\nconst rds = new SL_AWS.RDS(connectionManager);\n\nexports.handler = function (event, context, callback) {\n\n    // You must always end/destroy the DB connection after it's used\n    rds.beginTransaction({\n        instanceIdentifier: 'Test'\n    }, function (error, connection) {\n        if (error) {\n            throw error;\n        }\n        connection.end();\n    });\n    sqs.sendMessage({\n        MessageBody: 'Test',\n        QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/test-queue.fifo',\n        DelaySeconds: '0',\n        MessageDeduplicationId: 'Test ID',\n        MessageAttributes: {}\n    }, function (data) {\n        // your logic (logging etc) to handle successful message delivery, should be here\n    }, function (error) {\n        // your logic (logging etc) to handle failures, should be here\n        console.log(error);\n    });\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
         "triggers": [
           {
             "resourceName": "apigusEast1TestAPI1testpost",
@@ -69,7 +69,6 @@
         "type": "RDS",
         "config": {
           "editMode": false,
-          "operation": 1,
           "rdsInstance": {
             "rdsEngineType": "mysql",
             "rdsEdition": "",
@@ -90,18 +89,119 @@
             "rdsInstanceArn": "",
             "Host": "",
             "doesExist": false,
-            "initializationQuery": "CREATE DATABASE Test:",
+            "initializationQuery": "CREATE TABLE Users (ID INT  NOT NULL, name VARCHAR(150) NOT NULL, PRIMARY KEY (ID));",
             "alreadyDeployed": false
           },
-          "rdsInstanceResources": [],
-          "projectRegion": "us-east-1",
-          "mode": 0,
-          "additionalFiles": [],
+          "isGlobalEditMode": true,
           "params": {
             "query": "",
             "inserts": ""
           },
-          "isGlobalEditMode": false,
+          "mode": 0,
+          "projectRegion": "us-east-1",
+          "rdsInstanceResources": [
+            {
+              "name": "rds-Test",
+              "type": "RDS",
+              "config": {
+                "editMode": false,
+                "rdsInstance": {
+                  "rdsEngineType": "mysql",
+                  "rdsEdition": "",
+                  "rdsInstanceSpec": {
+                    "dbInstanceClass": "db.t2.micro",
+                    "dbLicenseModel": "general-public-license",
+                    "dbEngineVersion": "5.7.19"
+                  },
+                  "rdsSetting": {
+                    "instanceIdentifier": "Test",
+                    "masterUsername": "Test",
+                    "masterPassword": "Test#123"
+                  },
+                  "rdsDBOptions": {
+                    "dbName": "Test",
+                    "dbPort": "1923"
+                  },
+                  "rdsInstanceArn": "",
+                  "Host": "",
+                  "doesExist": false,
+                  "initializationQuery": "CREATE TABLE Users (Id INT  NOT NULL, name VARCHAR(150) NOT NULL, PRIMARY KEY (ID));",
+                  "alreadyDeployed": false
+                },
+                "isGlobalEditMode": true,
+                "params": {
+                  "query": "",
+                  "inserts": ""
+                },
+                "mode": 0,
+                "projectRegion": "us-east-1",
+                "rdsInstanceResources": [
+                  {
+                    "name": "rds-Test",
+                    "type": "RDS",
+                    "config": {
+                      "editMode": false,
+                      "operation": 1,
+                      "rdsInstance": {
+                        "rdsEngineType": "mysql",
+                        "rdsEdition": "",
+                        "rdsInstanceSpec": {
+                          "dbInstanceClass": "db.t2.micro",
+                          "dbLicenseModel": "general-public-license",
+                          "dbEngineVersion": "5.7.19"
+                        },
+                        "rdsSetting": {
+                          "instanceIdentifier": "Test",
+                          "masterUsername": "Test",
+                          "masterPassword": "Test#123"
+                        },
+                        "rdsDBOptions": {
+                          "dbName": "Test",
+                          "dbPort": "1923"
+                        },
+                        "rdsInstanceArn": "",
+                        "Host": "",
+                        "doesExist": false,
+                        "initializationQuery": "CREATE DATABASE Test:",
+                        "alreadyDeployed": false
+                      },
+                      "rdsInstanceResources": [],
+                      "projectRegion": "us-east-1",
+                      "mode": 0,
+                      "additionalFiles": [],
+                      "params": {
+                        "query": "",
+                        "inserts": ""
+                      },
+                      "isGlobalEditMode": false,
+                      "enableInject": true,
+                      "isNewFromGlobal": false
+                    },
+                    "globallyEditable": true,
+                    "usage": {
+                      "f71b144f-3ca3-4d8c-bce6-17edc50cd773": {
+                        "operations": {
+                          "beginTransaction": [
+                            {
+                              "instanceIdentifier": "Test"
+                            }
+                          ]
+                        },
+                        "occurrence": 1,
+                        "triggers": []
+                      }
+                    }
+                  }
+                ],
+                "additionalFiles": [],
+                "enableInject": true,
+                "isNewFromGlobal": false
+              },
+              "globallyEditable": true,
+              "usage": {}
+            }
+          ],
+          "additionalFiles": [],
           "enableInject": true,
           "isNewFromGlobal": false
         },
@@ -177,7 +277,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1546326534181
+    "lastSave": 1546329805690
   },
   "VCS_STATE": {
     "provider": "GitHub",
