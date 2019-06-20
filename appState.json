@@ -18,7 +18,7 @@
         "id": "f71b144f-3ca3-4d8c-bce6-17edc50cd773",
         "parent": "94e80d9a-0fa5-45f5-82ee-9b2fcd04da08",
         "name": "lambda.js",
-        "type": "LAMBDA_FILE",
+        "type": "JS_LAMBDA",
         "isDirectory": false,
         "children": [],
         "isRemovable": true,
@@ -249,6 +249,10 @@
         "globallyEditable": false
       }
     },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": {}
+    },
     "envVariables": [
       {
         "lambdaId": "all",
@@ -264,7 +268,8 @@
         "slappforge-sdk-aws": {
           "name": "slappforge-sdk-aws",
           "version": "0.0.5",
-          "notRemovable": false
+          "notRemovable": false,
+          "language": "javascript"
         }
       }
     },
@@ -277,7 +282,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1546329805690
+    "lastSave": 1561023346691
   },
   "VCS_STATE": {
     "provider": "GitHub",
